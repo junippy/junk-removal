@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junk Removal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="mainDiv">
+      <form id="mainForm">
+        <label for="fname">First name:</label>
+        <input
+          type="text"
+          placeholder="ex: John"
+          id="fname"
+          name="fname"
+          required
+        />
+        <hr />
+        <label for="lname">Last name:</label>
+        <input
+          type="text"
+          id="lname"
+          placeholder="ex: Doe"
+          name="lname"
+          required
+        />
+        <hr />
+        <label for="pnumber">Phone Number:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="ex: (123-456-7890)"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          required
+        />
+        <hr />
+        <label for="email">Email:</label>
+        <input
+          type="text"
+          placeholder="ex: email@gmail.com"
+          id="email"
+          name="email"
+          required
+        />
+        <hr />
+        <label for="submit">Submit:</label>
+        <input type="submit" id="submit" name="submit" required />
+      </form>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
