@@ -14,6 +14,13 @@ export default async function handler(req, res) {
 
   const data = await response.json();
 
+  console.log("reCAPTCHA result:", {
+    success: data.success,
+    score: data.score,
+    action: data.action,
+    timestamp: data.challenge_ts,
+  });
+
   // Score is 0.0 (bot) to 1.0 (human) — 0.5 is a safe threshold
   if (data.success && data.score >= 0.5) {
     return res.status(200).json({ success: true });
