@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Junk Removal</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LexOYMsAAAAAAbowxDp-bFFiHRU0fFRhH9-gHoL"></script>
     <style>
       body {
         background: #f4f4f4;
@@ -15,8 +16,8 @@
   </head>
   <body>
     <div class="card">
-      <h1>book yo stuff bruh</h1>
-      <p class="subtitle">Fill out the form and we'll get yo shizz</p>
+      <h1>Book us!</h1>
+      <p class="subtitle">Fill out the form and we'll get back to you.</p>
 
       <div class="row">
         <div class="field">
@@ -113,7 +114,6 @@
         const date = document.getElementById("date").value;
         const questions = document.getElementById("questions").value.trim();
 
-        // Basic validation
         if (
           !firstName ||
           !lastName ||
@@ -123,7 +123,7 @@
           !date
         ) {
           status.innerHTML =
-            '<span class="error">⚠️ Please fill in all required fields.</span>';
+            '<span class="error">Please fill in all required fields.</span>';
           return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -137,6 +137,36 @@
         status.innerHTML = "";
 
         try {
+          // Step 1: Get reCAPTCHA token
+          const token = await new Promise((resolve, reject) => {
+            grecaptcha.ready(() => {
+              grecaptcha
+                .execute("6LexOYMsAAAAAAbowxDp-bFFiHRU0fFRhH9-gHoL", {
+                  action: "submit",
+                })
+                .then(resolve)
+                .catch(reject);
+            });
+          });
+
+          // Step 2: Verify token with your backend
+          const verifyRes = await fetch("/api/verify-captcha", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+          });
+
+          const verifyData = await verifyRes.json();
+
+          if (!verifyData.success) {
+            status.innerHTML =
+              '<span class="error">Failed spam check. Please try again.</span>';
+            btn.disabled = false;
+            btn.textContent = "Submit Request";
+            return;
+          }
+
+          // Step 3: Submit to Firestore
           await addDoc(collection(db, "contacts"), {
             firstName,
             lastName,
@@ -150,7 +180,6 @@
 
           status.innerHTML =
             '<span class="success">Request submitted! We\'ll be in touch soon.</span>';
-          // Clear the form
           [
             "firstName",
             "lastName",
