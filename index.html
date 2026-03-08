@@ -46,6 +46,22 @@
         line-height: 1.4;
         display: none;
       }
+
+      .hint-inline {
+        display: none;
+        background: #f0f0f0;
+        color: #333;
+        font-size: 0.78rem;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-bottom: 6px;
+        line-height: 1.4;
+      }
+
+      .hint-inline.visible {
+        display: block;
+      }
+
       #darkToggle {
         position: absolute;
         top: 16px;
@@ -99,13 +115,25 @@
         background: #f4f4f4;
         color: #1a1a1a;
       }
-      body.dark .hint-tooltip {
-        background: #f4f4f4;
-        color: #1a1a1a;
-      }
 
       body.dark .hint-btn {
         color: #ccc;
+      }
+
+      body.dark .hint-inline {
+        background: #2a2a2a;
+        color: #ccc;
+      }
+
+      @media (max-width: 520px) {
+        .row {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .hint-tooltip {
+          display: none !important;
+        }
       }
     </style>
   </head>
@@ -128,6 +156,7 @@
             <label for="firstName">First Name *</label>
             <span class="hint-btn" data-tip="Your legal first name.">▸</span>
           </div>
+          <div class="hint-inline"></div>
           <input type="text" id="firstName" placeholder="John" required />
         </div>
         <br />
@@ -140,9 +169,10 @@
               margin-bottom: 6px;
             "
           >
-            <label for="lastName">Last Name *</label
-            ><span class="hint-btn" data-tip="Your legal last name.">▸</span>
+            <label for="lastName">Last Name *</label>
+            <span class="hint-btn" data-tip="Your legal last name.">▸</span>
           </div>
+          <div class="hint-inline"></div>
           <input type="text" id="lastName" placeholder="Doe" required />
         </div>
         <br />
@@ -163,6 +193,7 @@
               >▸</span
             >
           </div>
+          <div class="hint-inline"></div>
           <input type="tel" id="phone" placeholder="123-456-7890" required />
         </div>
         <br />
@@ -175,11 +206,12 @@
               margin-bottom: 6px;
             "
           >
-            <label for="email">Email Address *</label
-            ><span class="hint-btn" data-tip="Any email provider is accepted!"
+            <label for="email">Email Address *</label>
+            <span class="hint-btn" data-tip="Any email provider is accepted!"
               >▸</span
             >
           </div>
+          <div class="hint-inline"></div>
           <input
             type="email"
             id="email"
@@ -199,13 +231,14 @@
             margin-bottom: 6px;
           "
         >
-          <label for="description">What do you need removed? *</label
-          ><br /><span
+          <label for="description">What do you need removed? *</label>
+          <span
             class="hint-btn"
             data-tip="Please be specific as possible! We don't want any misunderstandings, do we?"
             >▸</span
           >
         </div>
+        <div class="hint-inline"></div>
         <textarea
           id="description"
           placeholder="e.g. old couch, appliances, yard waste..."
@@ -222,11 +255,12 @@
             margin-bottom: 6px;
           "
         >
-          <label for="date">Preferred Pickup Date *</label
-          ><span class="hint-btn" data-tip="The day you want us to come out."
+          <label for="date">Preferred Pickup Date *</label>
+          <span class="hint-btn" data-tip="The day you want us to come out."
             >▸</span
           >
         </div>
+        <div class="hint-inline"></div>
         <input type="date" id="date" />
       </div>
       <br />
@@ -240,19 +274,19 @@
             margin-bottom: 6px;
           "
         >
-          <label for="questions">Any questions or special requests?</label
-          ><br />
+          <label for="questions">Any questions or special requests?</label>
           <span
             class="hint-btn"
             data-tip="Please be specific as possible, yet again, we do not want any misunderstandings, do we?"
             >▸</span
           >
         </div>
+        <div class="hint-inline"></div>
         <textarea
           id="questions"
           placeholder="e.g. Is same-day available? Do you recycle?"
-        ></textarea
-        ><br />
+        ></textarea>
+        <br />
       </div>
       <br />
 
@@ -260,7 +294,6 @@
       <div id="status"></div>
     </div>
 
-    <!-- Firebase SDK -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -270,7 +303,6 @@
         serverTimestamp,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      // ✏️ REPLACE THIS with your own config from Firebase console
       const firebaseConfig = {
         apiKey: "AIzaSyDMQ5p0uc1SFaKcacVh29zgCMhK34wD85E",
         authDomain: "junk-removal-aba4a.firebaseapp.com",
@@ -318,7 +350,6 @@
         status.innerHTML = "";
 
         try {
-          // Step 1: Get reCAPTCHA token
           const token = await new Promise((resolve, reject) => {
             grecaptcha.ready(() => {
               grecaptcha
@@ -330,7 +361,6 @@
             });
           });
 
-          // Step 2: Verify token with your backend
           const verifyRes = await fetch("/api/verify-captcha", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -339,7 +369,7 @@
 
           if (verifyRes.status === 429) {
             status.innerHTML =
-              '<span class="error">⚠️ Too many submissions. Please try again later.</span>';
+              '<span class="error">Too many submissions. Please try again later.</span>';
             btn.disabled = false;
             btn.textContent = "Submit Request";
             return;
@@ -355,7 +385,6 @@
             return;
           }
 
-          // Step 3: Submit to Firestore
           await addDoc(collection(db, "contacts"), {
             firstName,
             lastName,
@@ -388,24 +417,45 @@
         btn.textContent = "Submit Request";
       };
     </script>
+
     <script>
+      const isMobile = () => window.innerWidth <= 520;
+
       const tooltip = document.createElement("div");
       tooltip.className = "hint-tooltip";
       document.body.appendChild(tooltip);
 
       document.querySelectorAll(".hint-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const rect = btn.getBoundingClientRect();
-          const isVisible =
-            tooltip.style.display === "block" &&
-            tooltip.dataset.owner === btn.dataset.tip;
+        const inlineBox = btn.closest(".field").querySelector(".hint-inline");
 
-          tooltip.style.display = isVisible ? "none" : "block";
-          tooltip.dataset.owner = btn.dataset.tip;
-          tooltip.textContent = btn.dataset.tip;
-          tooltip.style.top = rect.top - 4 + "px";
-          tooltip.style.left = rect.right + 10 + "px";
-          btn.textContent = isVisible ? "▸" : "▾";
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+
+          if (isMobile()) {
+            const isOpen = inlineBox.classList.contains("visible");
+            document
+              .querySelectorAll(".hint-inline")
+              .forEach((b) => b.classList.remove("visible"));
+            document
+              .querySelectorAll(".hint-btn")
+              .forEach((b) => (b.textContent = "▸"));
+            if (!isOpen) {
+              inlineBox.textContent = btn.dataset.tip;
+              inlineBox.classList.add("visible");
+              btn.textContent = "▾";
+            }
+          } else {
+            const rect = btn.getBoundingClientRect();
+            const isVisible =
+              tooltip.style.display === "block" &&
+              tooltip.dataset.owner === btn.dataset.tip;
+            tooltip.style.display = isVisible ? "none" : "block";
+            tooltip.dataset.owner = btn.dataset.tip;
+            tooltip.textContent = btn.dataset.tip;
+            tooltip.style.top = rect.top - 4 + "px";
+            tooltip.style.left = rect.right + 10 + "px";
+            btn.textContent = isVisible ? "▸" : "▾";
+          }
         });
       });
 
@@ -413,10 +463,14 @@
         if (!e.target.classList.contains("hint-btn")) {
           tooltip.style.display = "none";
           document
+            .querySelectorAll(".hint-inline")
+            .forEach((b) => b.classList.remove("visible"));
+          document
             .querySelectorAll(".hint-btn")
             .forEach((b) => (b.textContent = "▸"));
         }
       });
+
       function toggleDark() {
         const isDark = document.body.classList.toggle("dark");
         document.getElementById("darkToggle").textContent = isDark
