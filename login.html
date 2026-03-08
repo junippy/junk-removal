@@ -217,7 +217,6 @@
           return;
         }
 
-        // Debounce — wait 400ms after user stops typing before hitting the API
         clearTimeout(nominatimTimeout);
         nominatimTimeout = setTimeout(async () => {
           try {
@@ -256,7 +255,6 @@
         }, 400);
       });
 
-      // Close suggestions when clicking outside
       document.addEventListener("click", (e) => {
         if (e.target !== addressInput) {
           suggestionBox.style.display = "none";
