@@ -150,3 +150,34 @@ body.dark .hint-inline {
     display: none !important;
   }
 }
+
+#address-suggestions {
+  border: 1.5px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: white;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  position: relative;
+  z-index: 50;
+}
+
+#address-suggestions div {
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#address-suggestions div:hover {
+  background: #f0f0f0;
+}
+
+body.dark #address-suggestions {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark #address-suggestions div:hover {
+  background: #3a3a3a;
+}

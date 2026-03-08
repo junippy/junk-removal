@@ -167,13 +167,100 @@
         <br />
       </div>
       <br />
+      <div class="field">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="address">Pickup Address *</label>
+          <span
+            class="hint-btn"
+            data-tip="Start typing and select your address from the dropdown."
+            >▸</span
+          >
+        </div>
+        <div class="hint-inline"></div>
+        <input
+          type="text"
+          id="address"
+          placeholder="123 Main St, Toledo, OH"
+          required
+          autocomplete="off"
+        />
+        <div id="address-suggestions"></div>
+      </div>
 
       <button id="submitBtn" onclick="submitForm()">Submit Request</button>
       <div id="status"></div>
     </div>
 
     <script type="module" src="firebase.js"></script>
+    <script>
+      let selectedAddress = null;
+      let nominatimTimeout = null;
 
+      const addressInput = document.getElementById("address");
+      const suggestionBox = document.getElementById("address-suggestions");
+
+      addressInput.addEventListener("input", () => {
+        selectedAddress = null;
+        const query = addressInput.value.trim();
+
+        if (query.length < 3) {
+          suggestionBox.style.display = "none";
+          return;
+        }
+
+        // Debounce — wait 400ms after user stops typing before hitting the API
+        clearTimeout(nominatimTimeout);
+        nominatimTimeout = setTimeout(async () => {
+          try {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5&countrycodes=us`,
+              { headers: { "Accept-Language": "en" } },
+            );
+            const results = await res.json();
+
+            suggestionBox.innerHTML = "";
+
+            if (results.length === 0) {
+              suggestionBox.style.display = "none";
+              return;
+            }
+
+            results.forEach((r) => {
+              const item = document.createElement("div");
+              item.textContent = r.display_name;
+              item.addEventListener("click", () => {
+                addressInput.value = r.display_name;
+                selectedAddress = {
+                  full: r.display_name,
+                  lat: r.lat,
+                  lng: r.lon,
+                };
+                suggestionBox.style.display = "none";
+              });
+              suggestionBox.appendChild(item);
+            });
+
+            suggestionBox.style.display = "block";
+          } catch (err) {
+            console.error("Nominatim error:", err);
+          }
+        }, 400);
+      });
+
+      // Close suggestions when clicking outside
+      document.addEventListener("click", (e) => {
+        if (e.target !== addressInput) {
+          suggestionBox.style.display = "none";
+        }
+      });
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
