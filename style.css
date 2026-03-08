@@ -150,8 +150,11 @@ body.dark .hint-inline {
     display: none !important;
   }
 }
-
 #address-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   border: 1.5px solid #ddd;
   border-top: none;
   border-radius: 0 0 8px 8px;
@@ -159,7 +162,6 @@ body.dark .hint-inline {
   max-height: 200px;
   overflow-y: auto;
   display: none;
-  position: relative;
   z-index: 50;
 }
 
@@ -167,9 +169,14 @@ body.dark .hint-inline {
   padding: 10px 14px;
   font-size: 0.9rem;
   cursor: pointer;
+  /* wrap long addresses on mobile */
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.4;
 }
 
-#address-suggestions div:hover {
+#address-suggestions div:hover,
+#address-suggestions div:active {
   background: #f0f0f0;
 }
 
@@ -178,6 +185,7 @@ body.dark #address-suggestions {
   border-color: #444;
 }
 
-body.dark #address-suggestions div:hover {
+body.dark #address-suggestions div:hover,
+body.dark #address-suggestions div:active {
   background: #3a3a3a;
 }

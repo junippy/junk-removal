@@ -184,14 +184,16 @@
           >
         </div>
         <div class="hint-inline"></div>
-        <input
-          type="text"
-          id="address"
-          placeholder="123 Main St, Toledo, OH"
-          required
-          autocomplete="off"
-        />
-        <div id="address-suggestions"></div>
+        <div style="position: relative">
+          <input
+            type="text"
+            id="address"
+            placeholder="123 Main St, Toledo, OH"
+            required
+            autocomplete="off"
+          />
+          <div id="address-suggestions"></div>
+        </div>
       </div>
 
       <button id="submitBtn" onclick="submitForm()">Submit Request</button>
