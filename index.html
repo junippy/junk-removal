@@ -4,17 +4,113 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Junk Removal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://www.google.com/recaptcha/api.js?render=6LexOYMsAAAAAAbowxDp-bFFiHRU0fFRhH9-gHoL"></script>
     <style>
       body {
         background: #f4f4f4;
         display: flex;
+        font-family: "Roboto", sans-serif;
         justify-content: center;
         align-items: center;
+      }
+      .hint-btn {
+        width: 17px;
+        height: 17px;
+        background: none;
+        color: black;
+        border-radius: 50%;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        user-select: none;
+      }
+
+      .hint-tooltip {
+        position: fixed;
+        background: black;
+        color: #fff;
+        font-size: 0.78rem;
+        padding: 8px 12px;
+        border-radius: 8px;
+        width: 220px;
+        z-index: 100;
+        line-height: 1.4;
+        display: none;
+      }
+      #darkToggle {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        width: auto;
+      }
+      body.dark {
+        background: black;
+      }
+
+      body.dark .card {
+        background: black;
+        color: #f4f4f4;
+      }
+
+      body.dark label {
+        color: #cccccc;
+      }
+
+      body.dark input,
+      body.dark textarea {
+        background: #3f3f3f;
+        border-color: #a0a0a0;
+        color: #a0a0a0;
+      }
+
+      body.dark input::placeholder,
+      body.dark textarea::placeholder {
+        color: #a0a0a0;
+      }
+
+      body.dark button#submitBtn {
+        background: #3f3f3f;
+        color: white;
+      }
+
+      body.dark #darkToggle {
+        color: #666;
+      }
+
+      body.dark #darkToggle:hover {
+        color: #aaa;
+      }
+
+      body.dark .hint-tooltip {
+        background: #f4f4f4;
+        color: #1a1a1a;
+      }
+      body.dark .hint-tooltip {
+        background: #f4f4f4;
+        color: #1a1a1a;
+      }
+
+      body.dark .hint-btn {
+        color: #ccc;
       }
     </style>
   </head>
   <body>
+    <button id="darkToggle" onclick="toggleDark()">Dark Mode</button>
     <div class="card">
       <h1>Book us!</h1>
       <p class="subtitle">Fill out the form and we'll get back to you.</p>
@@ -34,7 +130,19 @@
 
       <div class="row">
         <div class="field">
-          <label for="phone">Phone Number *</label>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="phone">Phone Number *</label>
+            <span class="hint-btn" data-tip="The format doesn't matter."
+              >▸</span
+            >
+          </div>
           <input type="tel" id="phone" placeholder="123-456-7890" required />
         </div>
         <br />
@@ -206,6 +314,48 @@
         btn.disabled = false;
         btn.textContent = "Submit Request";
       };
+    </script>
+    <script>
+      const tooltip = document.createElement("div");
+      tooltip.className = "hint-tooltip";
+      document.body.appendChild(tooltip);
+
+      document.querySelectorAll(".hint-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const rect = btn.getBoundingClientRect();
+          const isVisible =
+            tooltip.style.display === "block" &&
+            tooltip.dataset.owner === btn.dataset.tip;
+
+          tooltip.style.display = isVisible ? "none" : "block";
+          tooltip.dataset.owner = btn.dataset.tip;
+          tooltip.textContent = btn.dataset.tip;
+          tooltip.style.top = rect.top - 4 + "px";
+          tooltip.style.left = rect.right + 10 + "px";
+          btn.textContent = isVisible ? "▸" : "▾";
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.classList.contains("hint-btn")) {
+          tooltip.style.display = "none";
+          document
+            .querySelectorAll(".hint-btn")
+            .forEach((b) => (b.textContent = "▸"));
+        }
+      });
+      function toggleDark() {
+        const isDark = document.body.classList.toggle("dark");
+        document.getElementById("darkToggle").textContent = isDark
+          ? "Light Mode"
+          : "Dark Mode";
+        localStorage.setItem("darkMode", isDark);
+      }
+
+      if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+        document.getElementById("darkToggle").textContent = "Light Mode";
+      }
     </script>
   </body>
 </html>
