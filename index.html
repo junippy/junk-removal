@@ -117,12 +117,32 @@
 
       <div class="row">
         <div class="field">
-          <label for="firstName">First Name *</label>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="firstName">First Name *</label>
+            <span class="hint-btn" data-tip="Your legal first name.">▸</span>
+          </div>
           <input type="text" id="firstName" placeholder="John" required />
         </div>
         <br />
         <div class="field">
-          <label for="lastName">Last Name *</label>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="lastName">Last Name *</label
+            ><span class="hint-btn" data-tip="Your legal last name.">▸</span>
+          </div>
           <input type="text" id="lastName" placeholder="Doe" required />
         </div>
         <br />
@@ -147,7 +167,19 @@
         </div>
         <br />
         <div class="field">
-          <label for="email">Email Address *</label>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="email">Email Address *</label
+            ><span class="hint-btn" data-tip="Any email provider is accepted!"
+              >▸</span
+            >
+          </div>
           <input
             type="email"
             id="email"
@@ -159,7 +191,21 @@
       </div>
 
       <div class="field">
-        <label for="description">What do you need removed? *</label><br />
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="description">What do you need removed? *</label
+          ><br /><span
+            class="hint-btn"
+            data-tip="Please be specific as possible! We don't want any misunderstandings, do we?"
+            >▸</span
+          >
+        </div>
         <textarea
           id="description"
           placeholder="e.g. old couch, appliances, yard waste..."
@@ -168,13 +214,40 @@
       <br />
 
       <div class="field">
-        <label for="date">Preferred Pickup Date *</label>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="date">Preferred Pickup Date *</label
+          ><span class="hint-btn" data-tip="The day you want us to come out."
+            >▸</span
+          >
+        </div>
         <input type="date" id="date" />
       </div>
       <br />
 
       <div class="field">
-        <label for="questions">Any questions or special requests?</label><br />
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="questions">Any questions or special requests?</label
+          ><br />
+          <span
+            class="hint-btn"
+            data-tip="Please be specific as possible, yet again, we do not want any misunderstandings, do we?"
+            >▸</span
+          >
+        </div>
         <textarea
           id="questions"
           placeholder="e.g. Is same-day available? Do you recycle?"
