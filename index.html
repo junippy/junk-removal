@@ -81,13 +81,6 @@
 
     <!-- Firebase SDK -->
     <script type="module">
-      if (verifyRes.status === 429) {
-        status.innerHTML =
-          '<span class="error">⚠️ Too many submissions. Please try again later.</span>';
-        btn.disabled = false;
-        btn.textContent = "Submit Request";
-        return;
-      }
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
         getFirestore,
@@ -162,6 +155,14 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ token }),
           });
+
+          if (verifyRes.status === 429) {
+            status.innerHTML =
+              '<span class="error">⚠️ Too many submissions. Please try again later.</span>';
+            btn.disabled = false;
+            btn.textContent = "Submit Request";
+            return;
+          }
 
           const verifyData = await verifyRes.json();
 
