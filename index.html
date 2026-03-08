@@ -10,479 +10,53 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <script src="https://www.google.com/recaptcha/api.js?render=6LexOYMsAAAAAAbowxDp-bFFiHRU0fFRhH9-gHoL"></script>
-    <style>
-      body {
-        background: #f4f4f4;
-        display: flex;
-        font-family: "Roboto", sans-serif;
-        justify-content: center;
-        align-items: center;
-      }
-      .hint-btn {
-        width: 17px;
-        height: 17px;
-        background: none;
-        color: black;
-        border-radius: 50%;
-        font-size: 0.85rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        user-select: none;
-      }
-
-      .hint-tooltip {
-        position: fixed;
-        background: black;
-        color: #fff;
-        font-size: 0.78rem;
-        padding: 8px 12px;
-        border-radius: 8px;
-        width: 220px;
-        z-index: 100;
-        line-height: 1.4;
-        display: none;
-      }
-
-      .hint-inline {
-        display: none;
-        background: #f0f0f0;
-        color: #333;
-        font-size: 0.78rem;
-        padding: 8px 12px;
-        border-radius: 6px;
-        margin-bottom: 6px;
-        line-height: 1.4;
-      }
-
-      .hint-inline.visible {
-        display: block;
-      }
-
-      #darkToggle {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: none;
-        border-radius: 8px;
-        padding: 6px 10px;
-        cursor: pointer;
-        font-size: 1rem;
-        width: auto;
-      }
-      body.dark {
-        background: black;
-      }
-
-      body.dark .card {
-        background: black;
-        color: #f4f4f4;
-      }
-
-      body.dark label {
-        color: #cccccc;
-      }
-
-      body.dark input,
-      body.dark textarea {
-        background: #3f3f3f;
-        border-color: #a0a0a0;
-        color: #a0a0a0;
-      }
-
-      body.dark input::placeholder,
-      body.dark textarea::placeholder {
-        color: #a0a0a0;
-      }
-
-      body.dark button#submitBtn {
-        background: #3f3f3f;
-        color: white;
-      }
-
-      body.dark #darkToggle {
-        color: #666;
-      }
-
-      body.dark #darkToggle:hover {
-        color: #aaa;
-      }
-
-      body.dark .hint-tooltip {
-        background: #f4f4f4;
-        color: #1a1a1a;
-      }
-
-      body.dark .hint-btn {
-        color: #ccc;
-      }
-
-      body.dark .hint-inline {
-        background: #2a2a2a;
-        color: #ccc;
-      }
-
-      @media (max-width: 520px) {
-        .row {
-          flex-direction: column;
-          gap: 0;
-        }
-
-        .hint-tooltip {
-          display: none !important;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <button id="darkToggle" onclick="toggleDark()">Dark Mode</button>
-    <div class="card">
-      <h1>Book us!</h1>
-      <p class="subtitle">Fill out the form and we'll get back to you.</p>
+    <div class="mainDiv">
+      <h1>A & T Junk Removal</h1>
+      <p>
+        Founded about 2 days ago (maybe), this company is dedicated to
+        delivering you the best service possible, all while giving you the best
+        deals you've ever seen!
+      </p>
 
-      <div class="row">
-        <div class="field">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 6px;
-            "
-          >
-            <label for="firstName">First Name *</label>
-            <span class="hint-btn" data-tip="Your legal first name.">▸</span>
-          </div>
-          <div class="hint-inline"></div>
-          <input type="text" id="firstName" placeholder="John" required />
-        </div>
+      <a class="bookBtn" href="login.html">Book us!</a>
+
+      <p>Why you should choose us:</p>
+      <ol>
+        <li>
+          Our dedication to service
+          <ul>
+            <li>
+              We are customer-focused, meaning we put the customer before
+              anything. We assure quality service, everytime, no exceptions.
+            </li>
+          </ul>
+        </li>
         <br />
-        <div class="field">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 6px;
-            "
-          >
-            <label for="lastName">Last Name *</label>
-            <span class="hint-btn" data-tip="Your legal last name.">▸</span>
-          </div>
-          <div class="hint-inline"></div>
-          <input type="text" id="lastName" placeholder="Doe" required />
-        </div>
-        <br />
-      </div>
-
-      <div class="row">
-        <div class="field">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 6px;
-            "
-          >
-            <label for="phone">Phone Number *</label>
-            <span class="hint-btn" data-tip="The format doesn't matter."
-              >▸</span
-            >
-          </div>
-          <div class="hint-inline"></div>
-          <input type="tel" id="phone" placeholder="123-456-7890" required />
-        </div>
-        <br />
-        <div class="field">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 6px;
-            "
-          >
-            <label for="email">Email Address *</label>
-            <span class="hint-btn" data-tip="Any email provider is accepted!"
-              >▸</span
-            >
-          </div>
-          <div class="hint-inline"></div>
-          <input
-            type="email"
-            id="email"
-            placeholder="email@example.com"
-            required
-          />
-        </div>
-        <br />
-      </div>
-
-      <div class="field">
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-          "
-        >
-          <label for="description">What do you need removed? *</label>
-          <span
-            class="hint-btn"
-            data-tip="Please be specific as possible! We don't want any misunderstandings, do we?"
-            >▸</span
-          >
-        </div>
-        <div class="hint-inline"></div>
-        <textarea
-          id="description"
-          placeholder="e.g. old couch, appliances, yard waste..."
-        ></textarea>
-      </div>
-      <br />
-
-      <div class="field">
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-          "
-        >
-          <label for="date">Preferred Pickup Date *</label>
-          <span class="hint-btn" data-tip="The day you want us to come out."
-            >▸</span
-          >
-        </div>
-        <div class="hint-inline"></div>
-        <input type="date" id="date" />
-      </div>
-      <br />
-
-      <div class="field">
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-          "
-        >
-          <label for="questions">Any questions or special requests?</label>
-          <span
-            class="hint-btn"
-            data-tip="Please be specific as possible, yet again, we do not want any misunderstandings, do we?"
-            >▸</span
-          >
-        </div>
-        <div class="hint-inline"></div>
-        <textarea
-          id="questions"
-          placeholder="e.g. Is same-day available? Do you recycle?"
-        ></textarea>
-        <br />
-      </div>
-      <br />
-
-      <button id="submitBtn" onclick="submitForm()">Submit Request</button>
-      <div id="status"></div>
+        <li>
+          Our dedication to cleanliness
+          <ul>
+            <li>
+              We focus on making sure your junk is gone for good, all while
+              keeping your place cleaner than when we got there!
+            </li>
+          </ul>
+        </li>
+        <li>
+          Blah Blah Blah
+          <ul>
+            <li>
+              Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+              Blah BlahBlah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+              Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+            </li>
+          </ul>
+        </li>
+      </ol>
     </div>
-
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-      import {
-        getFirestore,
-        collection,
-        addDoc,
-        serverTimestamp,
-      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyDMQ5p0uc1SFaKcacVh29zgCMhK34wD85E",
-        authDomain: "junk-removal-aba4a.firebaseapp.com",
-        projectId: "junk-removal-aba4a",
-        storageBucket: "junk-removal-aba4a.firebasestorage.app",
-        messagingSenderId: "865104656645",
-        appId: "1:865104656645:web:d0dacc3c805cab6f495f6c",
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-
-      window.submitForm = async function () {
-        const btn = document.getElementById("submitBtn");
-        const status = document.getElementById("status");
-
-        const firstName = document.getElementById("firstName").value.trim();
-        const lastName = document.getElementById("lastName").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const description = document.getElementById("description").value.trim();
-        const date = document.getElementById("date").value;
-        const questions = document.getElementById("questions").value.trim();
-
-        if (
-          !firstName ||
-          !lastName ||
-          !phone ||
-          !email ||
-          !description ||
-          !date
-        ) {
-          status.innerHTML =
-            '<span class="error">Please fill in all required fields.</span>';
-          return;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          status.innerHTML =
-            '<span class="error">Please enter a valid email address.</span>';
-          return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = "Submitting…";
-        status.innerHTML = "";
-
-        try {
-          const token = await new Promise((resolve, reject) => {
-            grecaptcha.ready(() => {
-              grecaptcha
-                .execute("6LexOYMsAAAAAAbowxDp-bFFiHRU0fFRhH9-gHoL", {
-                  action: "submit",
-                })
-                .then(resolve)
-                .catch(reject);
-            });
-          });
-
-          const verifyRes = await fetch("/api/verify-captcha", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token }),
-          });
-
-          if (verifyRes.status === 429) {
-            status.innerHTML =
-              '<span class="error">Too many submissions. Please try again later.</span>';
-            btn.disabled = false;
-            btn.textContent = "Submit Request";
-            return;
-          }
-
-          const verifyData = await verifyRes.json();
-
-          if (!verifyData.success) {
-            status.innerHTML =
-              '<span class="error">Failed spam check. Please try again.</span>';
-            btn.disabled = false;
-            btn.textContent = "Submit Request";
-            return;
-          }
-
-          await addDoc(collection(db, "contacts"), {
-            firstName,
-            lastName,
-            phone,
-            email,
-            description,
-            date,
-            questions,
-            submittedAt: serverTimestamp(),
-          });
-
-          status.innerHTML =
-            '<span class="success">Request submitted! We\'ll be in touch soon.</span>';
-          [
-            "firstName",
-            "lastName",
-            "phone",
-            "email",
-            "description",
-            "date",
-            "questions",
-          ].forEach((id) => (document.getElementById(id).value = ""));
-        } catch (err) {
-          console.error(err);
-          status.innerHTML =
-            '<span class="error">Something went wrong. Please try again.</span>';
-        }
-
-        btn.disabled = false;
-        btn.textContent = "Submit Request";
-      };
-    </script>
-
-    <script>
-      const isMobile = () => window.innerWidth <= 520;
-
-      const tooltip = document.createElement("div");
-      tooltip.className = "hint-tooltip";
-      document.body.appendChild(tooltip);
-
-      document.querySelectorAll(".hint-btn").forEach((btn) => {
-        const inlineBox = btn.closest(".field").querySelector(".hint-inline");
-
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-
-          if (isMobile()) {
-            const isOpen = inlineBox.classList.contains("visible");
-            document
-              .querySelectorAll(".hint-inline")
-              .forEach((b) => b.classList.remove("visible"));
-            document
-              .querySelectorAll(".hint-btn")
-              .forEach((b) => (b.textContent = "▸"));
-            if (!isOpen) {
-              inlineBox.textContent = btn.dataset.tip;
-              inlineBox.classList.add("visible");
-              btn.textContent = "▾";
-            }
-          } else {
-            const rect = btn.getBoundingClientRect();
-            const isVisible =
-              tooltip.style.display === "block" &&
-              tooltip.dataset.owner === btn.dataset.tip;
-            tooltip.style.display = isVisible ? "none" : "block";
-            tooltip.dataset.owner = btn.dataset.tip;
-            tooltip.textContent = btn.dataset.tip;
-            tooltip.style.top = rect.top - 4 + "px";
-            tooltip.style.left = rect.right + 10 + "px";
-            btn.textContent = isVisible ? "▸" : "▾";
-          }
-        });
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!e.target.classList.contains("hint-btn")) {
-          tooltip.style.display = "none";
-          document
-            .querySelectorAll(".hint-inline")
-            .forEach((b) => b.classList.remove("visible"));
-          document
-            .querySelectorAll(".hint-btn")
-            .forEach((b) => (b.textContent = "▸"));
-        }
-      });
-
-      function toggleDark() {
-        const isDark = document.body.classList.toggle("dark");
-        document.getElementById("darkToggle").textContent = isDark
-          ? "Light Mode"
-          : "Dark Mode";
-        localStorage.setItem("darkMode", isDark);
-      }
-
-      if (localStorage.getItem("darkMode") === "true") {
-        document.body.classList.add("dark");
-        document.getElementById("darkToggle").textContent = "Light Mode";
-      }
-    </script>
+    <button id="darkToggle" onclick="toggleDark()">Dark Mode</button>
+    <script src="script.js"></script>
   </body>
 </html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junk Removal || Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://www.google.com/recaptcha/api.js?render=6LexOYMsAAAAAAbowxDp-bFFiHRU0fFRhH9-gHoL"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button id="darkToggle" onclick="toggleDark()">Dark Mode</button>
+    <div class="card">
+      <h1>Book us!</h1>
+      <p class="subtitle">Fill out the form and we'll get back to you.</p>
+
+      <a class="bookBtn" href="index.html">Back to the homepage</a><br />
+      <br />
+      <div class="row">
+        <div class="field">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="firstName">First Name *</label>
+            <span class="hint-btn" data-tip="Your legal first name.">▸</span>
+          </div>
+          <div class="hint-inline"></div>
+          <input type="text" id="firstName" placeholder="John" required />
+        </div>
+        <br />
+        <div class="field">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="lastName">Last Name *</label>
+            <span class="hint-btn" data-tip="Your legal last name.">▸</span>
+          </div>
+          <div class="hint-inline"></div>
+          <input type="text" id="lastName" placeholder="Doe" required />
+        </div>
+        <br />
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="phone">Phone Number *</label>
+            <span class="hint-btn" data-tip="The format doesn't matter."
+              >▸</span
+            >
+          </div>
+          <div class="hint-inline"></div>
+          <input type="tel" id="phone" placeholder="123-456-7890" required />
+        </div>
+        <br />
+        <div class="field">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+            "
+          >
+            <label for="email">Email Address *</label>
+            <span class="hint-btn" data-tip="Any email provider is accepted!"
+              >▸</span
+            >
+          </div>
+          <div class="hint-inline"></div>
+          <input
+            type="email"
+            id="email"
+            placeholder="email@example.com"
+            required
+          />
+        </div>
+        <br />
+      </div>
+
+      <div class="field">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="description">What do you need removed? *</label>
+          <span
+            class="hint-btn"
+            data-tip="Please be specific as possible! We don't want any misunderstandings, do we?"
+            >▸</span
+          >
+        </div>
+        <div class="hint-inline"></div>
+        <textarea
+          id="description"
+          placeholder="e.g. old couch, appliances, yard waste..."
+        ></textarea>
+      </div>
+      <br />
+
+      <div class="field">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="date">Preferred Pickup Date *</label>
+          <span class="hint-btn" data-tip="The day you want us to come out."
+            >▸</span
+          >
+        </div>
+        <div class="hint-inline"></div>
+        <input type="date" id="date" />
+      </div>
+      <br />
+
+      <div class="field">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+          "
+        >
+          <label for="questions">Any questions or special requests?</label>
+          <span
+            class="hint-btn"
+            data-tip="Please be specific as possible, yet again, we do not want any misunderstandings, do we?"
+            >▸</span
+          >
+        </div>
+        <div class="hint-inline"></div>
+        <textarea
+          id="questions"
+          placeholder="e.g. Is same-day available? Do you recycle?"
+        ></textarea>
+        <br />
+      </div>
+      <br />
+
+      <button id="submitBtn" onclick="submitForm()">Submit Request</button>
+      <div id="status"></div>
+    </div>
+
+    <script type="module" src="firebase.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
